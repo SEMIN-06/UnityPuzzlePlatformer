@@ -27,13 +27,12 @@ public class GroundCheck : MonoBehaviour
             Block block = collider.GetComponent<Block>();
             if (G.gameManager.playerJumpTime <= Time.time)
             {
-                G.gameManager.playerJumpTime = Time.time + 0.01f;
+                G.gameManager.playerJumpTime = Time.time + 0.1f;
                 float jumpPower = 10f;
 
                 switch (block.blockType)
                 {
                     case BlockTypes.general:
-                        Debug.Log("aa");
                         G.gameManager.PlaySound("normalCollision");
                         break;
                     case BlockTypes.temp:
@@ -52,15 +51,24 @@ public class GroundCheck : MonoBehaviour
                         G.gameManager.PlaySound("jump");
                         GetComponentInParent<PlayerMovement>().StartStraight(collider.transform);
                         break;
+                    case BlockTypes.descent:
+                        G.gameManager.PlaySound("jump");
+                        collider.GetComponent<Rigidbody>().isKinematic = false;
+                        collider.GetComponentInChildren<MeshRenderer>().material = (Material)Resources.Load("Material/Material_BlockImgs");
+                        break;
+                    case BlockTypes.move:
+                        G.gameManager.PlaySound("normalCollision");
+                        if (!block.isMoveBlockMoving)
+                        {
+                            StartCoroutine(block.StartMoveBlock());
+                        }
+                        break;
                     default:
                         break;
                 }
 
                 G.gameManager.playerRigid.velocity = Vector3.zero;
                 G.gameManager.playerRigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-            } else
-            {
-                Debug.Log("bb");
             }
         }
     }

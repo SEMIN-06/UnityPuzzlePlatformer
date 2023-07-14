@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Rush()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         Vector3 targetPos = G.gameManager.player.position;
         targetPos.y = transform.position.y;
         while (true)
@@ -70,6 +70,7 @@ public class Enemy : MonoBehaviour
             }
             yield return null;
         }
+        yield return new WaitForSeconds(0.25f);
         rushing = false;
     }
 }

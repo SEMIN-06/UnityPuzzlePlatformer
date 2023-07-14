@@ -52,11 +52,11 @@ public class PlayerMovement : MonoBehaviour
                                 Vector3 dir = Vector3.zero; 
                                 if (keyDowns[0] || keyDowns[3])
                                 {
-                                    dir = Vector3.right;
+                                    dir = transform.right;
                                 }
                                 else if (keyDowns[1] || keyDowns[2])
                                 {
-                                    dir = Vector3.left;
+                                    dir = -transform.right;
                                 }
                                 playerRigid.velocity = Vector3.zero;
                                 playerRigid.AddForce((dir * dashPower) + (Vector3.up * 4), ForceMode.Impulse);
@@ -163,14 +163,13 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator StartCameraRotate(Vector3 rotate)
     {
-        float maxTime = 10f;
+        float maxTime = 0.5f;
         float nowTime = 0;
+        Quaternion rot = G.gameManager.cameraParent.rotation;
         while (nowTime < maxTime)
         {
             nowTime += Time.deltaTime;
-            //Debug.Log(string.Format("({0}) {1}", nowTime / maxTime, Vector3.Lerp(G.gameManager.cameraParent.localEulerAngles, rotate, nowTime / maxTime)));
-            //G.gameManager.cameraParent.localEulerAngles = Vector3.Lerp(G.gameManager.cameraParent.localEulerAngles, rotate, nowTime / maxTime);
-            G.gameManager.cameraParent.rotation = Quaternion.Lerp(G.gameManager.cameraParent.rotation, Quaternion.Euler(rotate), nowTime / maxTime);
+            G.gameManager.cameraParent.rotation = Quaternion.Lerp(rot, Quaternion.Euler(rotate), nowTime / maxTime);
             yield return null;
         }
     }
