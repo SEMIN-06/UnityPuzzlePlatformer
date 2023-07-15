@@ -26,8 +26,6 @@ public class PlayerMovement : MonoBehaviour
     {
         playerRigid = GetComponent<Rigidbody>();
         meshRenderer = GetComponent<MeshRenderer>();
-        G.gameManager.player = transform;
-        G.gameManager.playerRigid = playerRigid;
     }
 
     private void Update()
@@ -58,13 +56,15 @@ public class PlayerMovement : MonoBehaviour
                                 {
                                     dir = -transform.right;
                                 }
-                                playerRigid.velocity = Vector3.zero;
-                                playerRigid.AddForce((dir * dashPower) + (Vector3.up * 4), ForceMode.Impulse);
+                                //playerRigid.velocity = Vector3.zero;
+                                //playerRigid.AddForce((dir * dashPower) + (Vector3.up * 4), ForceMode.Impulse);
+                                G.gameManager.AddForcePlayer((dir * dashPower) + (Vector3.up * 4));
                                 G.gameManager.PlaySound("jump");
                                 break;
                             case ItemTypes.doubleJump:
-                                playerRigid.velocity = Vector3.zero;
-                                playerRigid.AddForce(Vector3.up * doubleJumpPower, ForceMode.Impulse);
+                                //playerRigid.velocity = Vector3.zero;
+                                //playerRigid.AddForce(Vector3.up * doubleJumpPower, ForceMode.Impulse);
+                                G.gameManager.AddForcePlayer(Vector3.up * doubleJumpPower);
                                 G.gameManager.PlaySound("jump");
                                 break;
                             default:
@@ -88,6 +88,10 @@ public class PlayerMovement : MonoBehaviour
         {
             G.gameManager.Die();
         }
+
+        hAxis = Input.GetAxisRaw("Horizontal");
+
+      
     }
 
     // Update is called once per frame
@@ -106,7 +110,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            hAxis = Input.GetAxisRaw("Horizontal");
             bool blockMoveR = Physics.Raycast(transform.position, transform.right, 0.3f, LayerMask.GetMask("Block"));
             bool blockMoveL = Physics.Raycast(transform.position, -transform.right, 0.3f, LayerMask.GetMask("Block"));
             if (blockMoveR) hAxis = Mathf.Clamp(hAxis, -1, 0);
@@ -115,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
             transform.Translate(newPos);
         }
     }
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Item"))
@@ -144,6 +147,15 @@ public class PlayerMovement : MonoBehaviour
                 itemTime = Time.time + 0.5f;
             }
         }
+        else if (other.CompareTag("EnemyHitPoint"))
+        {
+            if (playerRigid.velocity.y < 0) // 플레이어가 위에서 아래로 내려올때만 가능 (위에서 아래로가면 -)
+            {
+                G.gameManager.AddForcePlayer(Vector3.up * 10);
+                G.gameManager.DeleteEnemy(other.transform.parent.gameObject);
+                G.gameManager.PlaySound("pang");
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -151,13 +163,6 @@ public class PlayerMovement : MonoBehaviour
         if (collision.collider.CompareTag("Enemy"))
         {
             G.gameManager.Die();
-        }
-        else if (collision.collider.CompareTag("EnemyHitPoint"))
-        {
-            playerRigid.velocity = Vector3.zero;
-            playerRigid.AddForce(Vector3.up * 10, ForceMode.Impulse);
-            G.gameManager.DeleteEnemy(collision.collider.transform.parent.gameObject);
-            G.gameManager.PlaySound("pang");
         }
     }
 

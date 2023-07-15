@@ -15,8 +15,8 @@ public struct StageInfo {
 
 public class GameManager : MonoBehaviour
 {
-    [HideInInspector] public Transform player;
-    [HideInInspector] public Rigidbody playerRigid;
+    public Transform player;
+    public Rigidbody playerRigid;
     [HideInInspector] public Transform cameraParent;
     [HideInInspector] public float playerJumpTime = 0;
     [HideInInspector] public List<GameObject> spawnedEnemies = new();
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         OnChangeStage(-1, 0);
     }
 
@@ -81,5 +82,12 @@ public class GameManager : MonoBehaviour
         cameraParent.rotation = stageInfos[toStage].cameraRot;
         player.rotation = stageInfos[toStage].cameraRot;
         nowStage = toStage;
+    }
+
+    public void AddForcePlayer(Vector3 dir)
+    {
+        playerRigid.velocity = dir;// new Vector3(0,10,0);
+       // playerRigid.AddForce(dir, ForceMode.Impulse);
+        Debug.Log(Time.time.ToString() + "AddForcePlayer");
     }
 }

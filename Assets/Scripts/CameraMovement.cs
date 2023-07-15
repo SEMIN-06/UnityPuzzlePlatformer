@@ -10,9 +10,14 @@ public class CameraMovement : MonoBehaviour
         G.gameManager.cameraParent = transform;
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
     // Update is called once per frame
     void LateUpdate()
     {
         transform.position = Vector3.Lerp(transform.position, G.gameManager.player.position, 3f * Time.deltaTime);
+
     }
 }

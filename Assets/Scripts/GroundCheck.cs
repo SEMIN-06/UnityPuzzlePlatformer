@@ -67,8 +67,9 @@ public class GroundCheck : MonoBehaviour
                         break;
                 }
 
-                G.gameManager.playerRigid.velocity = Vector3.zero;
-                G.gameManager.playerRigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+                //G.gameManager.playerRigid.velocity = Vector3.zero;
+                //G.gameManager.playerRigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+                G.gameManager.AddForcePlayer(Vector3.up * jumpPower);
             }
         }
     }
