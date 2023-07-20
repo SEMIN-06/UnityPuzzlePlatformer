@@ -63,6 +63,13 @@ public class GroundCheck : MonoBehaviour
                             StartCoroutine(block.StartMoveBlock());
                         }
                         break;
+                    case BlockTypes.autoMove:
+                        G.gameManager.PlaySound("normalCollision");
+                        if (!block.isAutoMoveBlockMoving)
+                        {
+                            StartCoroutine(block.StartAutoMoveBlock());
+                        }
+                        break;
                     default:
                         break;
                 }

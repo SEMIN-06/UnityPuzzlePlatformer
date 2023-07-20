@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ItemTypes
 {
-    none, dash, doubleJump, rotate
+    none, dash, doubleJump, rotate, fly
 }
 
 public class Item : MonoBehaviour
