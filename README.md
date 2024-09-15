@@ -1,8 +1,8 @@
 <div align="center">
-  <h3 align="center">유니티 퍼즐 플랫포머 게임</h3>
+  <h3 align="center">유니티 퍼즐 플랫포머 게임</h3>
 
   <p align="center">
-    전국기능경기대회 연습 문제로 만든 퍼즐 플랫포머 게임
+    전국기능경기대회 연습 문제로 만든 퍼즐 플랫포머 게임
   </p>
 </div>
 
