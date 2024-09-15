@@ -19,13 +19,13 @@
 - Windows 10
 - Visual Studio 2019
 
-### 시연 영상 (사진 클릭 시 유튜브로 이동합니다.)
-
-[![시연 영상](https://img.youtube.com/vi/HoomCtO3K68/0.jpg)](https://www.youtube.com/watch?v=HoomCtO3K68 '시연 영상')
-
 ### 게임 플레이해보기
 
-##### [클릭 시 이동합니다](https://semin-06.github.io/UnityPuzzlePlatformer/Build)
+##### [클릭 시 게임 플레이 사이트로 이동합니다](https://semin-06.github.io/UnityPuzzlePlatformer/Build)
+
+### 시연 영상 (사진 클릭 시 유튜브로 이동합니다.)
+
+[![시연 영상](https://img.youtube.com/vi/UeG9UCsbBQs/0.jpg)](https://www.youtube.com/watch?v=UeG9UCsbBQs '시연 영상')
 
 ### 이 프로젝트에 사용한 것들
 
